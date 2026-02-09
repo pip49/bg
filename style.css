@@ -41,7 +41,7 @@ p { color: #555; }
 a {
     display: inline-block;
     text-decoration: none;
-    color: black; /* 🔥 링크 색상을 검정색으로 변경 */
+    color: white; /* 🔥 링크 색상을 흰색으로 변경 */
     font-weight: bold;
     font-size: 1.1em;
     transition: color 0.3s;
