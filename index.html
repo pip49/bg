@@ -8,41 +8,74 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            max-width: 600px;
-            margin: 50px auto;
-            text-align: center;
-            line-height: 2;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            /* 배경 이미지 설정 */
+            background-image: url('background.jpg');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
         }
-        h1 { color: #333; }
+
+        .main-container {
+            /* 투명도 적용된 흰색 배경 */
+            background-color: rgba(255, 255, 255, 0.3);
+            /* 글자 가독성을 위해 테두리 흐림 효과 추가 */
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            width: 90%;
+            max-width: 500px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        h1 { color: #333; margin-top: 0; }
+        p { color: #555; }
+
         .link-container {
             margin-top: 30px;
             display: flex;
             flex-direction: column;
             gap: 15px;
         }
+
         a {
             display: inline-block;
-            padding: 10px 20px;
-            background-color: #007bff;
+            padding: 12px 20px;
+            background-color: rgba(0, 123, 255, 0.8);
             color: white;
             text-decoration: none;
             border-radius: 5px;
             font-weight: bold;
+            transition: background-color 0.3s;
         }
+
         a:hover {
-            background-color: #0056b3;
+            background-color: rgba(0, 86, 179, 0.9);
         }
     </style>
 </head>
 <body>
 
-    <h1>📚 문서 보관소</h1>
-    <p>아래 링크를 클릭하여 문서를 열람하세요.</p>
+    <div class="main-container">
+        <h1>📚 문서 보관소</h1>
+        <p>아래 링크를 클릭하여 문서를 열람하세요.</p>
 
-    <div class="link-container">
-        <a href="document.html" target="_blank">📄 리브레오피스 문서 열람 (HTML/PDF/Office)</a>
+        <div class="link-container">
+            <a href="document.html" target="_blank">📄 리브레오피스 문서 열람</a>
 
-        <a href="notes.txt" target="_blank">📝 TXT 파일 열람</a>
+            <a href="여기에_복사한_구글_링크_붙여넣기" target="_blank">📊 구글 프레젠테이션 열기</a>
+
+            <a href="notes.txt" target="_blank">📝 TXT 파일 열람</a>
+        </div>
     </div>
 
 </body>
