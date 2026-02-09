@@ -1,0 +1,49 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>문서 열람 페이지</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 600px;
+            margin: 50px auto;
+            text-align: center;
+            line-height: 2;
+        }
+        h1 { color: #333; }
+        .link-container {
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+        a:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>📚 문서 보관소</h1>
+    <p>아래 링크를 클릭하여 문서를 열람하세요.</p>
+
+    <div class="link-container">
+        <a href="document.html" target="_blank">📄 리브레오피스 문서 열람 (HTML/PDF/Office)</a>
+
+        <a href="notes.txt" target="_blank">📝 TXT 파일 열람</a>
+    </div>
+
+</body>
+</html>
