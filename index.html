@@ -14,7 +14,6 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
-            /* 배경 이미지 설정 */
             background-image: url('bg.jpg');
             background-size: cover;
             background-position: center;
@@ -22,9 +21,7 @@
         }
 
         .main-container {
-            /* 투명도 적용된 흰색 배경 */
             background-color: rgba(255, 255, 255, 0.2);
-            /* 글자 가독성을 위해 테두리 흐림 효과 추가 */
             backdrop-filter: blur(10px);
             -webkit-backdrop-filter: blur(10px);
 
@@ -44,30 +41,30 @@
             margin-top: 30px;
             display: flex;
             flex-direction: column;
-            gap: 15px;
+            gap: 40px;
         }
 
         a {
             display: inline-block;
-            padding: 12px 20px;
-            background-color: rgba(0, 123, 255, 0.8);
-            color: white;
+            /* 박스 스타일 제거 */
             text-decoration: none;
-            border-radius: 5px;
+            color: #0056b3;
             font-weight: bold;
-            transition: background-color 0.3s;
+            font-size: 1.1em;
+            transition: color 0.3s;
         }
 
         a:hover {
-            background-color: rgba(0, 86, 179, 0.9);
+            color: #007bff;
+            text-decoration: underline;
         }
     </style>
 </head>
 <body>
 
     <div class="main-container">
-        <h1>📚 문서 보관소</h1>
-        <p>아래 링크를 클릭하여 문서를 열람하세요.</p>
+        <h3>📚 바로가기링크</h3>
+        <p>필요한 문구를 넣을줄..</p>
 
         <div class="link-container">
             <a href="전기.html" target="_blank">📄 리브레오피스 문서 열람</a>
