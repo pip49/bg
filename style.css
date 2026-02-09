@@ -38,19 +38,27 @@ p { color: #555; }
     gap: 40px;
 }
 
+/* style.css 파일의 기존 a 스타일 부분을 찾아 이렇게 수정하세요 */
+
 a {
     display: inline-block;
     text-decoration: none;
-    color: #0056b3;
+    color: black; /* 🔥 링크 색상을 흰색으로 변경 */
     font-weight: bold;
     font-size: 1.1em;
     transition: color 0.3s;
 }
 
+/* 방문한 적이 있는 링크도 흰색으로 고정 */
+a:visited {
+    color: black; /* 🔥 방문한 링크도 흰색으로 고정 */
+}
+
 a:hover {
-    color: #007bff;
+    color: #007bff; /* 마우스를 올렸을 때는 포인트 색상 (선택사항) */
     text-decoration: underline;
 }
+
 
 /* --- 상단 컨테이너 (음악 + 오른쪽 아이콘) --- */
 .top-fixed-container {
