@@ -27,7 +27,8 @@ body {
     max-width: 500px;
     border: 1px solid rgba(255, 255, 255, 0.2);
 
-    /* 🔥 하단 고정 아이콘과의 간격 margin-bottom 삭제 */
+    /* 하단 고정 아이콘과의 간격 확보를 위한 margin-bottom 추가 */
+    margin-bottom: 50px;
 }
 
 h3 { color: #333; margin-top: 0; }
@@ -48,14 +49,14 @@ p { color: #000000; font-size: 0.9em; line-height: 1.5; }
 a {
     display: inline-block;
     text-decoration: none;
-    color: white; /* 링크 색상을 흰색으로 변경 */
+    color: white; /* 🔥 링크 색상을 흰색으로 변경 */
     font-weight: bold;
     font-size: 1.1em;
     transition: color 0.3s;
 }
 
 a:visited {
-    color: white; /* 방문한 링크는 흰색으로 고정 */
+    color: white; /* 🔥 방문한 링크는 흰색으로 고정 */
 }
 
 a:hover {
@@ -93,31 +94,18 @@ a:hover {
     background-color: rgba(255, 255, 255, 0.8);
 }
 
-/* --- 최하단 컨테이너 (설정 아이콘 + 문구) --- */
+/* --- 최하단 컨테이너 (설정 아이콘) --- */
 .bottom-fixed-container {
     position: fixed;
     bottom: 0;
     left: 0;
     width: 100%;
-    height: auto; /* 🔥 높이를 컨텐츠에 맞춰 자동 조절 */
+    height: 50px; /* 높이 약간 조정 */
     z-index: 1000;
     display: flex;
-    flex-direction: column; /* 🔥 요소를 세로로 배치 */
     justify-content: center;
     align-items: center;
     padding-bottom: 10px;
-}
-
-/* 🔥 새로 이동한 문구 스타일 추가 */
-.bottom-text {
-    color: white;
-    font-size: 0.8em;
-    margin: 0 0 5px 0; /* 아이콘과의 간격 */
-    text-align: center;
-    background-color: rgba(0, 0, 0, 0.5); /* 가독성 배경 */
-    padding: 5px;
-    border-radius: 5px;
-    max-width: 90%; /* 화면 밖으로 나가지 않도록 설정 */
 }
 
 .bottom-link-icon {
