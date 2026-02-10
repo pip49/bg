@@ -113,9 +113,9 @@ a:hover {
     margin: 0 0 5px 0;
     text-align: center;
     background-color: rgba(255, 255, 255, 0.7); /* 🔥 반투명 흰색 배경 추가 */
-    padding: 8px; /* 패딩 증가 */
+    padding: 8px 15px; /* 패딩 증가 */
     border-radius: 10px;
-    max-width: 95%; /* 폰에서 좌우 여백 확보 */
+    max-width: 90%; /* 폰에서 좌우 여백 확보 */
     line-height: 1.4;
     word-break: keep-all; /* 단어 단위로 줄바꿈 */
 }
