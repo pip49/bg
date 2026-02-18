@@ -4,70 +4,100 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>나만의 학습 사전</title>
+    <title>전기기능사 학습 사전</title>
     <style>
-        body { font-family: 'Malgun Gothic', sans-serif; padding: 20px; background-color: #f4f7f6; margin: 0; }
+        /* 기본 테마 및 배경 */
+        body { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif; padding: 20px; background-color: #f0f4f8; margin: 0; color: #333; }
 
-        /* 검색창이 담긴 상단 카드 */
+        /* 상단 검색 카드 */
         .container {
             max-width: 500px;
             margin: 20px auto;
             background: white;
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            padding: 25px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
         }
 
-        h1 { color: #333; text-align: center; font-size: 1.5rem; margin-bottom: 25px; }
+        h1 { color: #2c3e50; text-align: center; font-size: 1.6rem; margin-bottom: 25px; letter-spacing: -1px; }
 
         .search-wrapper { position: relative; display: flex; flex-direction: column; gap: 10px; }
 
         input {
-            padding: 15px; font-size: 18px; border: 2px solid #ddd; border-radius: 8px;
-            outline: none; width: 100%; box-sizing: border-box;
+            padding: 16px; font-size: 18px; border: 2px solid #e2e8f0; border-radius: 10px;
+            outline: none; width: 100%; box-sizing: border-box; transition: all 0.3s;
         }
+        input:focus { border-color: #3498db; box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2); }
 
         button {
-            padding: 15px; font-size: 18px; background: #28a745; color: white;
-            border: none; border-radius: 8px; cursor: pointer; font-weight: bold;
+            padding: 16px; font-size: 18px; background: #3498db; color: white;
+            border: none; border-radius: 10px; cursor: pointer; font-weight: bold; transition: background 0.2s;
         }
+        button:hover { background: #2980b9; }
 
+        /* 자동완성 목록 */
         #suggestions {
-            position: absolute; top: 58px; left: 0; width: 100%;
-            background: white; border: 1px solid #ddd; border-radius: 0 0 8px 8px;
-            max-height: 200px; overflow-y: auto; z-index: 1000; display: none;
+            position: absolute; top: 62px; left: 0; width: 100%;
+            background: white; border: 1px solid #e2e8f0; border-radius: 10px;
+            max-height: 250px; overflow-y: auto; z-index: 1000; display: none;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
         }
 
-        .suggestion-item { padding: 15px; font-size: 16px; border-bottom: 1px solid #f0f0f0; cursor: pointer; }
-        .suggestion-item:hover { background-color: #f0fdf4; }
+        .suggestion-item { padding: 15px; font-size: 16px; border-bottom: 1px solid #f8fafc; cursor: pointer; }
+        .suggestion-item:last-child { border-bottom: none; }
+        .suggestion-item:hover { background-color: #ebf8ff; color: #3182ce; }
 
-        /* ⭐ 핵심: 카드 외부의 결과창 스타일 */
+        /* ⭐ 결과 출력 영역 (카드 외부, 확장형) */
         #result {
-            max-width: 850px; /* 카드보다 훨씬 넓게 설정 */
-            margin: 30px auto; /* 중앙 정렬 */
-            padding: 30px;
+            max-width: 800px;
+            margin: 40px auto;
+            padding: 40px;
             background: white;
-            border-radius: 12px;
-            box-shadow: 0 2px 15px rgba(0,0,0,0.05);
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
             display: none;
-            line-height: 1.8;
-            font-size: 18px; /* 글자 크기도 키움 */
-            color: #444;
-            border-left: 8px solid #28a745; /* 포인트 디자인 */
+            line-height: 1.9;
+            font-size: 19px;
+            color: #4a5568;
+            border-top: 10px solid #3498db; /* 상단 포인트 */
         }
-        .keyword { font-weight: bold; color: #28a745; font-size: 1.5em; display: block; margin-bottom: 15px; border-bottom: 1px solid #eee; padding-bottom: 10px; }
 
-        @media (min-width: 480px) {
+        .keyword {
+            font-weight: 800; color: #2d3748; font-size: 1.8em;
+            display: block; margin-bottom: 20px; padding-bottom: 15px;
+            border-bottom: 2px solid #edf2f7;
+        }
+
+        /* ⭐ 해설 내 링크 스타일링 */
+        #result a {
+            color: #3182ce;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 2px 6px;
+            background: #ebf8ff;
+            border-radius: 4px;
+            transition: all 0.2s;
+            display: inline-block;
+            margin: 0 2px;
+            border-bottom: 2px solid #3182ce;
+        }
+        #result a:hover {
+            background: #3182ce;
+            color: white;
+        }
+
+        /* PC용 레이아웃 조정 */
+        @media (min-width: 500px) {
             .search-wrapper { flex-direction: row; }
-            button { width: 100px; }
-            #suggestions { top: 52px; width: calc(100% - 110px); }
+            button { width: 110px; }
+            #suggestions { top: 58px; width: calc(100% - 120px); }
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <h1>📚 지식 저장소</h1>
+    <h1>⚡ 전기기능사 용어사전</h1>
     <div class="search-wrapper">
         <input type="text" id="searchInput" placeholder="용어를 입력하세요..."
                oninput="showSuggestions()"
@@ -82,6 +112,7 @@
 <script>
     let dictionary = {};
 
+    // 데이터 로드
     fetch('data.json')
         .then(response => response.json())
         .then(data => { dictionary = data; })
@@ -97,7 +128,7 @@
         }
 
         const keywords = Object.keys(dictionary);
-        const matched = keywords.filter(key => key.toUpperCase().includes(input)); // '포함' 검색 적용
+        const matched = keywords.filter(key => key.toUpperCase().includes(input));
 
         if (matched.length > 0) {
             suggestionsDiv.innerHTML = matched
@@ -123,20 +154,21 @@
         suggestionsDiv.style.display = "none";
         document.getElementById("searchInput").blur();
 
-        // 검색 로직: 완전 일치 확인 후, 없으면 포함된 첫 번째 결과 표시
+        // 포함 검색 로직
         let finalKey = dictionary[query] ? query : Object.keys(dictionary).find(key => key.toUpperCase().includes(query));
 
         if (finalKey && dictionary[finalKey]) {
+            // innerHTML을 사용해야 JSON 내부의 <a> 태그가 작동함
             resultDiv.innerHTML = `<span class="keyword">${finalKey}</span> ${dictionary[finalKey]}`;
             resultDiv.style.display = "block";
-            // 화면을 결과창으로 부드럽게 스크롤 (긴 내용 대비)
-            resultDiv.scrollIntoView({ behavior: 'smooth' });
+            resultDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
         } else if (query !== "") {
             resultDiv.innerHTML = "죄송합니다. 해당 내용을 찾을 수 없습니다. 😅";
             resultDiv.style.display = "block";
         }
     }
 
+    // 외부 클릭 시 목록 닫기
     document.addEventListener("click", function(e) {
         if (e.target.id !== "searchInput") {
             document.getElementById("suggestions").style.display = "none";
