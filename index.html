@@ -3,87 +3,40 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>나만의 학습 사전</title>
     <style>
-        /* 기본 스타일 유지 및 모바일 최적화 */
-        body { font-family: 'Malgun Gothic', sans-serif; padding: 20px; background-color: #f4f7f6; margin: 0; }
+        body { font-family: 'Malgun Gothic', sans-serif; padding: 40px; background-color: #f4f7f6; }
+        .container { max-width: 500px; margin: auto; background: white; padding: 30px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        h1 { color: #333; text-align: center; }
 
-        .container {
-            max-width: 600px;
-            margin: 20px auto;
-            background: white;
-            padding: 20px;
-            border-radius: 12px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
+        /* 검색창 영역 */
+        .search-wrapper { position: relative; display: flex; gap: 10px; margin-bottom: 20px; }
+        input { flex: 1; padding: 12px; border: 1px solid #ddd; border-radius: 5px; outline: none; }
+        button { padding: 10px 20px; background: #28a745; color: white; border: none; border-radius: 5px; cursor: pointer; }
+        button:hover { background: #218838; }
 
-        h1 { color: #333; text-align: center; font-size: 1.5rem; margin-bottom: 25px; }
-
-        /* 2. 검색창 영역을 모바일에서 더 크게 수정 */
-        .search-wrapper { position: relative; display: flex; flex-direction: column; gap: 10px; }
-
-        /* 입력창을 더 크고 터치하기 쉽게 */
-        input {
-            padding: 15px;
-            font-size: 18px; /* 폰트 크기를 키워야 모바일에서 확대 현상이 없습니다 */
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            outline: none;
-            width: 100%;
-            box-sizing: border-box;
-        }
-
-        input:focus { border-color: #28a745; }
-
-        /* 버튼도 크게 */
-        button {
-            padding: 15px;
-            font-size: 18px;
-            background: #28a745;
-            color: white;
-            border: none;
-            border-radius: 8px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        /* 자동완성 목록도 검색창 크기에 맞춤 */
+        /* 자동완성 목록 스타일 */
         #suggestions {
             position: absolute;
-            top: 58px;
+            top: 50px; /* input 바로 아래 배치 */
             left: 0;
-            width: 100%;
+            width: calc(100% - 110px); /* 버튼 제외한 input 너비에 맞춤 */
             background: white;
             border: 1px solid #ddd;
-            border-radius: 0 0 8px 8px;
-            max-height: 250px;
+            border-top: none;
+            border-radius: 0 0 5px 5px;
+            max-height: 200px;
             overflow-y: auto;
             z-index: 1000;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            display: none;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            display: none; /* 기본적으로 숨김 */
         }
+        .suggestion-item { padding: 10px; cursor: pointer; border-bottom: 1px solid #f9f9f9; }
+        .suggestion-item:last-child { border-bottom: none; }
+        .suggestion-item:hover { background-color: #f0fdf4; color: #28a745; }
 
-        .suggestion-item { padding: 15px; font-size: 16px; border-bottom: 1px solid #f0f0f0; }
-        .suggestion-item:hover { background-color: #f0fdf4; }
-
-        #result {
-            margin-top: 25px;
-            padding: 20px;
-            border-radius: 8px;
-            background-color: #f9f9f9;
-            display: none;
-            line-height: 1.7;
-            font-size: 17px;
-        }
-        .keyword { font-weight: bold; color: #28a745; font-size: 1.3em; display: block; margin-bottom: 8px; }
-
-        /* PC 버전 (화면이 넓을 때) 레이아웃 조정 */
-        @media (min-width: 480px) {
-            .search-wrapper { flex-direction: row; }
-            button { width: 100px; }
-            #suggestions { top: 52px; width: calc(100% - 110px); }
-        }
+        #result { padding: 20px; border-top: 2px solid #eee; display: none; line-height: 1.6; }
+        .keyword { font-weight: bold; color: #28a745; font-size: 1.2em; display: block; margin-bottom: 5px; }
     </style>
 </head>
 <body>
@@ -91,7 +44,7 @@
 <div class="container">
     <h1>📚 지식 저장소</h1>
     <div class="search-wrapper">
-        <input type="text" id="searchInput" placeholder="용어를 입력하세요..."
+        <input type="text" id="searchInput" placeholder="궁금한 용어를 입력하세요..."
                oninput="showSuggestions()"
                onkeypress="if(event.keyCode==13) search()">
 
@@ -105,13 +58,16 @@
 <script>
     let dictionary = {};
 
+    // 1. 페이지 로드 시 JSON 파일을 가져옵니다.
     fetch('data.json')
         .then(response => response.json())
         .then(data => {
             dictionary = data;
+            console.log("데이터 로드 완료!");
         })
-        .catch(error => console.error("데이터 로드 실패:", error));
+        .catch(error => console.error("데이터를 불러오는데 실패했습니다:", error));
 
+    // 2. 자동 완성 함수
     function showSuggestions() {
         const input = document.getElementById("searchInput").value.trim().toUpperCase();
         const suggestionsDiv = document.getElementById("suggestions");
@@ -122,6 +78,7 @@
         }
 
         const keywords = Object.keys(dictionary);
+        // 입력한 단어로 시작하는 키워드 필터링
         const matched = keywords.filter(key => key.toUpperCase().startsWith(input));
 
         if (matched.length > 0) {
@@ -134,29 +91,31 @@
         }
     }
 
+    // 3. 목록에서 단어 선택 시 함수
     function selectKeyword(key) {
         document.getElementById("searchInput").value = key;
         document.getElementById("suggestions").style.display = "none";
-        search();
+        search(); // 선택 즉시 검색 결과 표시
     }
 
+    // 4. 검색 결과 표시 함수
     function search() {
         const query = document.getElementById("searchInput").value.trim().toUpperCase();
         const resultDiv = document.getElementById("result");
         const suggestionsDiv = document.getElementById("suggestions");
 
-        suggestionsDiv.style.display = "none";
-        document.getElementById("searchInput").blur(); // 모바일 키보드 닫기
+        suggestionsDiv.style.display = "none"; // 검색 버튼 누르면 목록 숨김
 
         if (dictionary[query]) {
             resultDiv.innerHTML = `<span class="keyword">${query}</span> ${dictionary[query]}`;
             resultDiv.style.display = "block";
-        } else if (query !== "") {
-            resultDiv.innerHTML = "해당 용어는 아직 등록되지 않았습니다. 😅";
+        } else {
+            resultDiv.innerHTML = "죄송합니다. 해당 용어는 아직 등록되지 않았습니다. 😅";
             resultDiv.style.display = "block";
         }
     }
 
+    // 바탕화면 클릭 시 자동완성 목록 닫기
     document.addEventListener("click", function(e) {
         if (e.target.id !== "searchInput") {
             document.getElementById("suggestions").style.display = "none";
