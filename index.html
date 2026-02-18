@@ -3,37 +3,49 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>문서 열람 페이지</title>
-    <link rel="stylesheet" href="style.css">
+    <title>나만의 학습 사전</title>
+    <style>
+        body { font-family: sans-serif; padding: 20px; }
+        input { padding: 10px; width: 300px; }
+        button { padding: 10px; cursor: pointer; }
+        #result { margin-top: 20px; padding: 15px; border: 1px solid #ddd; min-height: 50px; display: none; }
+        .highlight { color: blue; font-weight: bold; }
+    </style>
 </head>
 <body>
 
-    <div class="top-fixed-container">
-        <audio controls style="width: 30%; height: 30px; opacity: 0.5;">
-            <source src="person_to_person.mp3" type="audio/mpeg">
-        </audio>
-        <a href="https://blues100.web.app" target="_blank" class="external-link-icon">🔗</a>
-    </div>
+    <h1>📚 학습 용어 사전</h1>
 
-    <div class="bottom-fixed-container">
-	    <p class="bottom-text">는 
- 기능도 함께 활용해 보세요. 감사감사합니다.</p>
-        <a href="https://pip49.github.io/re" target="_blank" class="bottom-link-icon">⚙️ </a>
-    </div>
+    <input type="text" id="searchInput" placeholder="검색어를 입력하세요 (예: HTML)">
+    <button onclick="searchKeyword()">검색</button>
 
-    <div class="main-container">
-        <h3>📚 바로가기링크</h3>
+    <div id="result"></div>
 
-        <div class="spacer"></div>
+    <script>
+        // 💡 여기에 공부한 내용을 추가하세요!
+        const dictionary = {
+            "HTML": "웹 페이지의 구조를 만드는 마크업 언어입니다.",
+            "CSS": "웹 페이지의 스타일(디자인)을 담당하는 언어입니다.",
+            "JAVASCRIPT": "웹 페이지에 동작을 추가하는 프로그래밍 언어입니다.",
+            "API": "애플리케이션 간의 데이터를 주고받는 규칙입니다."
+        };
 
-        <div class="link-container">
-            <a href="ddd.html" target="_blank">📄 리브레오피스 문서 열람</a>
-    	    <a href="https://docs.google.com/presentation/d/e/2PACX-1vQA9nKahFqNMPVSW8AWNsuEP3YgVUn_kxOYOFzTt6fQQYt2I4roa9oI23HIY5CAFlnDfc9FWAXuHzQ5/pubembed?start=true&loop=false&delayms=3000" target="_blank">📊 구글 프레젠테이션 열기</a>
-            <a href="firebase.txt" target="_blank">📝 TXT 파일 열람</a>
-        </div>
-    </div>
+        function searchKeyword() {
+            const input = document.getElementById("searchInput").value.toUpperCase(); // 대소문자 구분 없이 검색
+            const resultDiv = document.getElementById("result");
 
+            if (dictionary[input]) {
+                resultDiv.innerHTML = `<span class="highlight">${input}</span>: ${dictionary[input]}`;
+                resultDiv.style.display = "block";
+            } else if (input === "") {
+                resultDiv.innerHTML = "검색어를 입력해주세요.";
+                resultDiv.style.display = "block";
+            } else {
+                resultDiv.innerHTML = "해당 용어에 대한 해설이 없습니다.";
+                resultDiv.style.display = "block";
+            }
+        }
+    </script>
 
 </body>
 </html>
