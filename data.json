@@ -4,7 +4,7 @@
   "CSS": "Cascading Style Sheets의 약자로 디자인을 담당합니다.",
   "JS": "JavaScript의 약자로 웹에 생동감을 불어넣는 언어입니다.",
   "REACT": "사용자 인터페이스를 만들기 위한 자바스크립트 라이브러리입니다.",
-  "옴의 법칙": "전류의 세기는 전압에 비례하고 저항에 반비례한다는 법칙입니다. 자세한 수식과 설명은 <a href='https://ko.wikipedia.org/wiki/%EC%98%B4%EC%9D%98_%EB%B2%95%EC%B9%99' target='_blank'>위키백과</a>를 참고하세요.",
+  "옴의 법칙": "<h6>전류의 세기는 전압에 비례하고 저항에 반비례한다는 법칙입니다. 자세한 수식과</h6> 설명은 <a href='https://ko.wikipedia.org/wiki/%EC%98%B4%EC%9D%98_%EB%B2%95%EC%B9%99' target='_blank'>위키백과</a>를 참고하세요.",
   "절연저항": "절연물에 전압을 가했을 때 흐르는 미세한 전류에 대한 저항값입니다. 안전 기준은 <a href='https://terms.naver.com/entry.naver?docId=582747&cid=42328&categoryId=42328' target='_blank'>지식백과</a>에서 확인할 수 있습니다.",
   "변압기": "전자기유도작용을 이용하여 교류 전압의 크기를 바꾸는 장치입니다. 원리 설명은 <a href='https://ko.wikipedia.org/wiki/%EB%B3%80%EC%95%92%EA%B8%B0' target='_blank'>여기</a>를 클릭하세요.",
   "콘덴서": "전기 에너지를 축적하는 장치로 커패시터라고도 부릅니다. <a href='https://terms.naver.com/entry.naver?docId=1150536&cid=40942&categoryId=32374' target='_blank'>상세 설명 보기</a>",
