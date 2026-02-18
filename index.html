@@ -6,91 +6,82 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>전기기능사 학습 사전</title>
     <style>
-        /* 기본 테마 및 배경 */
-        body { font-family: 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif; padding: 20px; background-color: #f0f4f8; margin: 0; color: #333; }
+        /* 기본 배경 및 테마 */
+        body { font-family: 'Malgun Gothic', sans-serif; padding: 20px; background-color: #ffffff; margin: 0; color: #333; line-height: 1.6; }
 
-        /* 상단 검색 카드 */
+        /* 상단 검색 영역 카드 (검색창만 깔끔하게 유지) */
         .container {
-            max-width: 500px;
-            margin: 20px auto;
-            background: white;
-            padding: 25px;
-            border-radius: 16px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+            max-width: 600px;
+            margin: 20px auto 40px auto;
+            background: #fff;
+            padding: 20px;
+            border-bottom: 2px solid #eee; /* 카드 대신 하단 구분선으로 깔끔하게 처리 */
         }
 
-        h1 { color: #2c3e50; text-align: center; font-size: 1.6rem; margin-bottom: 25px; letter-spacing: -1px; }
+        h1 { color: #2c3e50; text-align: center; font-size: 1.8rem; margin-bottom: 25px; }
 
         .search-wrapper { position: relative; display: flex; flex-direction: column; gap: 10px; }
 
         input {
-            padding: 16px; font-size: 18px; border: 2px solid #e2e8f0; border-radius: 10px;
-            outline: none; width: 100%; box-sizing: border-box; transition: all 0.3s;
+            padding: 16px; font-size: 18px; border: 2px solid #ddd; border-radius: 8px;
+            outline: none; width: 100%; box-sizing: border-box;
         }
-        input:focus { border-color: #3498db; box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.2); }
+        input:focus { border-color: #3498db; }
 
         button {
             padding: 16px; font-size: 18px; background: #3498db; color: white;
-            border: none; border-radius: 10px; cursor: pointer; font-weight: bold; transition: background 0.2s;
+            border: none; border-radius: 8px; cursor: pointer; font-weight: bold;
         }
-        button:hover { background: #2980b9; }
 
         /* 자동완성 목록 */
         #suggestions {
             position: absolute; top: 62px; left: 0; width: 100%;
-            background: white; border: 1px solid #e2e8f0; border-radius: 10px;
+            background: white; border: 1px solid #ddd; border-radius: 8px;
             max-height: 250px; overflow-y: auto; z-index: 1000; display: none;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
+        .suggestion-item { padding: 15px; border-bottom: 1px solid #f0f0f0; cursor: pointer; }
+        .suggestion-item:hover { background-color: #f7fbff; color: #3498db; }
 
-        .suggestion-item { padding: 15px; font-size: 16px; border-bottom: 1px solid #f8fafc; cursor: pointer; }
-        .suggestion-item:last-child { border-bottom: none; }
-        .suggestion-item:hover { background-color: #ebf8ff; color: #3182ce; }
-
-        /* ⭐ 결과 출력 영역 (카드 외부, 확장형) */
+        /* ⭐ 핵심: 카드 없이 외부로 넓게 출력되는 결과 영역 */
         #result {
-            max-width: 800px;
-            margin: 40px auto;
-            padding: 40px;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-            display: none;
-            line-height: 1.9;
-            font-size: 19px;
-            color: #4a5568;
-            border-top: 10px solid #3498db; /* 상단 포인트 */
+            max-width: 900px; /* 결과 너비를 대폭 확장 */
+            margin: 0 auto;
+            padding: 20px;
+            display: none; /* 초기에는 숨김 */
         }
 
+        /* 용어 제목 스타일 */
         .keyword {
-            font-weight: 800; color: #2d3748; font-size: 1.8em;
-            display: block; margin-bottom: 20px; padding-bottom: 15px;
-            border-bottom: 2px solid #edf2f7;
+            font-weight: 800;
+            color: #2c3e50;
+            font-size: 2.2em; /* 제목을 더 크게 */
+            display: block;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #3498db; /* 강조 선 */
         }
 
-        /* ⭐ 해설 내 링크 스타일링 */
+        /* 해설 본문 스타일 */
+        .content {
+            font-size: 20px; /* 글자 크기를 키워 가독성 확보 */
+            color: #444;
+            line-height: 2; /* 줄 간격을 넓게 설정하여 많은 글도 편하게 읽힘 */
+            word-break: break-all; /* 긴 단어도 자동 줄바꿈 */
+        }
+
+        /* 해설 내 링크 스타일 */
         #result a {
-            color: #3182ce;
-            text-decoration: none;
+            color: #3498db;
+            text-decoration: underline;
             font-weight: bold;
-            padding: 2px 6px;
-            background: #ebf8ff;
-            border-radius: 4px;
-            transition: all 0.2s;
-            display: inline-block;
-            margin: 0 2px;
-            border-bottom: 2px solid #3182ce;
-        }
-        #result a:hover {
-            background: #3182ce;
-            color: white;
         }
 
-        /* PC용 레이아웃 조정 */
+        /* 모바일/PC 반응형 조정 */
         @media (min-width: 500px) {
             .search-wrapper { flex-direction: row; }
-            button { width: 110px; }
-            #suggestions { top: 58px; width: calc(100% - 120px); }
+            button { width: 120px; }
+            #suggestions { top: 58px; width: calc(100% - 130px); }
         }
     </style>
 </head>
@@ -154,21 +145,22 @@
         suggestionsDiv.style.display = "none";
         document.getElementById("searchInput").blur();
 
-        // 포함 검색 로직
         let finalKey = dictionary[query] ? query : Object.keys(dictionary).find(key => key.toUpperCase().includes(query));
 
         if (finalKey && dictionary[finalKey]) {
-            // innerHTML을 사용해야 JSON 내부의 <a> 태그가 작동함
-            resultDiv.innerHTML = `<span class="keyword">${finalKey}</span> ${dictionary[finalKey]}`;
+            // 카드 테두리 없이 본문 텍스트 위주로 출력
+            resultDiv.innerHTML = `
+                <span class="keyword">${finalKey}</span>
+                <div class="content">${dictionary[finalKey]}</div>
+            `;
             resultDiv.style.display = "block";
             resultDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
         } else if (query !== "") {
-            resultDiv.innerHTML = "죄송합니다. 해당 내용을 찾을 수 없습니다. 😅";
+            resultDiv.innerHTML = "<div class='content'>해당 내용을 찾을 수 없습니다. 😅</div>";
             resultDiv.style.display = "block";
         }
     }
 
-    // 외부 클릭 시 목록 닫기
     document.addEventListener("click", function(e) {
         if (e.target.id !== "searchInput") {
             document.getElementById("suggestions").style.display = "none";
