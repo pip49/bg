@@ -7,81 +7,79 @@
     <title>전기기능사 학습 사전</title>
     <style>
         /* 기본 배경 및 테마 */
-        body { font-family: 'Malgun Gothic', sans-serif; padding: 20px; background-color: #ffffff; margin: 0; color: #333; line-height: 1.6; }
+        body { font-family: 'Malgun Gothic', sans-serif; padding: 20px; background-color: #ffffff; margin: 0; color: #333; line-height: 1.5; }
 
-        /* 상단 검색 영역 카드 (검색창만 깔끔하게 유지) */
+        /* 상단 검색 영역 */
         .container {
             max-width: 600px;
             margin: 20px auto 40px auto;
             background: #fff;
             padding: 20px;
-            border-bottom: 2px solid #eee; /* 카드 대신 하단 구분선으로 깔끔하게 처리 */
+            border-bottom: 2px solid #eee;
         }
 
-        h1 { color: #2c3e50; text-align: center; font-size: 1.8rem; margin-bottom: 25px; }
+        h1 { color: #2c3e50; text-align: center; font-size: 1.6rem; margin-bottom: 25px; }
 
         .search-wrapper { position: relative; display: flex; flex-direction: column; gap: 10px; }
 
         input {
-            padding: 16px; font-size: 18px; border: 2px solid #ddd; border-radius: 8px;
+            padding: 14px; font-size: 16px; border: 2px solid #ddd; border-radius: 8px;
             outline: none; width: 100%; box-sizing: border-box;
         }
         input:focus { border-color: #3498db; }
 
         button {
-            padding: 16px; font-size: 18px; background: #3498db; color: white;
+            padding: 14px; font-size: 16px; background: #3498db; color: white;
             border: none; border-radius: 8px; cursor: pointer; font-weight: bold;
         }
 
         /* 자동완성 목록 */
         #suggestions {
-            position: absolute; top: 62px; left: 0; width: 100%;
+            position: absolute; top: 58px; left: 0; width: 100%;
             background: white; border: 1px solid #ddd; border-radius: 8px;
             max-height: 250px; overflow-y: auto; z-index: 1000; display: none;
             box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
-        .suggestion-item { padding: 15px; border-bottom: 1px solid #f0f0f0; cursor: pointer; }
+        .suggestion-item { padding: 12px; border-bottom: 1px solid #f0f0f0; cursor: pointer; font-size: 15px; }
         .suggestion-item:hover { background-color: #f7fbff; color: #3498db; }
 
-        /* ⭐ 핵심: 카드 없이 외부로 넓게 출력되는 결과 영역 */
+        /* ⭐ 결과 출력 영역 (너비를 더 넓게 사용) */
         #result {
-            max-width: 900px; /* 결과 너비를 대폭 확장 */
+            max-width: 1000px; /* 더 많은 텍스트 수용을 위해 너비 확장 */
             margin: 0 auto;
             padding: 20px;
-            display: none; /* 초기에는 숨김 */
+            display: none;
         }
 
-        /* 용어 제목 스타일 */
         .keyword {
             font-weight: 800;
             color: #2c3e50;
-            font-size: 2.2em; /* 제목을 더 크게 */
+            font-size: 1.8em;
             display: block;
-            margin-bottom: 20px;
-            padding-bottom: 10px;
-            border-bottom: 3px solid #3498db; /* 강조 선 */
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 3px solid #3498db;
         }
 
-        /* 해설 본문 스타일 */
+        /* ⭐ 수정된 본문 스타일: 글자 크기를 줄이고 줄 간격을 조절 */
         .content {
-            font-size: 20px; /* 글자 크기를 키워 가독성 확보 */
+            font-size: 15px; /* 기존 20px에서 15px로 축소 */
             color: #444;
-            line-height: 2; /* 줄 간격을 넓게 설정하여 많은 글도 편하게 읽힘 */
-            word-break: break-all; /* 긴 단어도 자동 줄바꿈 */
+            line-height: 1.6; /* 줄 간격을 1.6으로 좁혀 더 밀도 있게 출력 */
+            text-align: justify; /* 양쪽 정렬로 한 줄에 더 꽉 차 보이게 함 */
+            word-break: keep-all; /* 단어 단위로 끊어지게 하여 가독성 보완 */
         }
 
-        /* 해설 내 링크 스타일 */
         #result a {
             color: #3498db;
             text-decoration: underline;
             font-weight: bold;
         }
 
-        /* 모바일/PC 반응형 조정 */
         @media (min-width: 500px) {
             .search-wrapper { flex-direction: row; }
-            button { width: 120px; }
-            #suggestions { top: 58px; width: calc(100% - 130px); }
+            button { width: 100px; }
+            #suggestions { top: 54px; width: calc(100% - 110px); }
         }
     </style>
 </head>
@@ -103,7 +101,6 @@
 <script>
     let dictionary = {};
 
-    // 데이터 로드
     fetch('data.json')
         .then(response => response.json())
         .then(data => { dictionary = data; })
@@ -148,7 +145,6 @@
         let finalKey = dictionary[query] ? query : Object.keys(dictionary).find(key => key.toUpperCase().includes(query));
 
         if (finalKey && dictionary[finalKey]) {
-            // 카드 테두리 없이 본문 텍스트 위주로 출력
             resultDiv.innerHTML = `
                 <span class="keyword">${finalKey}</span>
                 <div class="content">${dictionary[finalKey]}</div>
