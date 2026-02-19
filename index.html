@@ -43,9 +43,9 @@
         .suggestion-item { padding: 12px; border-bottom: 1px solid #f0f0f0; cursor: pointer; font-size: 15px; }
         .suggestion-item:hover { background-color: #f7fbff; color: #3498db; }
 
-        /* ⭐ 결과 출력 영역 (너비를 더 넓게 사용) */
+        /* 결과 출력 영역 (카드 디자인 제거 및 너비 확장) */
         #result {
-            max-width: 1000px; /* 더 많은 텍스트 수용을 위해 너비 확장 */
+            max-width: 1000px;
             margin: 0 auto;
             padding: 20px;
             display: none;
@@ -61,19 +61,28 @@
             border-bottom: 3px solid #3498db;
         }
 
-        /* ⭐ 수정된 본문 스타일: 글자 크기를 줄이고 줄 간격을 조절 */
+        /* 본문 스타일: 글자 크기 15px로 축소 및 밀도 향상 */
         .content {
-            font-size: 15px; /* 기존 20px에서 15px로 축소 */
+            font-size: 15px;
             color: #444;
-            line-height: 1.6; /* 줄 간격을 1.6으로 좁혀 더 밀도 있게 출력 */
-            text-align: justify; /* 양쪽 정렬로 한 줄에 더 꽉 차 보이게 함 */
-            word-break: keep-all; /* 단어 단위로 끊어지게 하여 가독성 보완 */
+            line-height: 1.6;
+            text-align: justify;
+            word-break: keep-all;
         }
 
+        /* 링크 스타일: 클릭하고 싶게 만드는 디자인 */
         #result a {
             color: #3498db;
-            text-decoration: underline;
+            text-decoration: none;
             font-weight: bold;
+            background-color: #ebf8ff;
+            padding: 2px 8px;
+            border-radius: 4px;
+            border-bottom: 2px solid #3498db;
+        }
+        #result a:hover {
+            background-color: #3498db;
+            color: white;
         }
 
         @media (min-width: 500px) {
